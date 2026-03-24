@@ -23,10 +23,16 @@ while True:
             break
 
     # 2- TRANSFORMATION
+        print("\n--- Tableau Nettoyé et GPS")
         df_velib = pd.DataFrame(donnees_stations)
+        # Données imbriquées pour transformation en un tableau de 2 colonnes claires (lon, lat) 
+        df_gps = df_velib['coordonnees_geo'].apply(pd.Series)
+        
+        # On assemble les deux tableaux
+        df_velib = pd.concat([df_velib, df_gps], axis=1)
 
-    # On filtre sur les colonnes qui nous interesse
-        donnees_cles = ['stationcode', 'name', 'capacity', 'numdocksavailable', 'numbikesavailable']
+    # On filtre sur les colonnes qui nous interesse en ajoutant les données géographiques
+        donnees_cles = ['stationcode', 'name', 'capacity', 'numdocksavailable', 'numbikesavailable', 'lat', 'lon']
         df_velib = df_velib[donnees_cles]
         df_velib['date_extraction'] = pd.Timestamp.now()
 
