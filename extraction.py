@@ -44,4 +44,4 @@ while True:
 
         print("Données sauvegardées avec succès dans la base")
         pagination = pagination + 100
-    time.sleep(600)
+    time.sleep(30)
